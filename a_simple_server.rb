@@ -3,8 +3,12 @@ require 'socket'
 server = TCPServer.open(80)
 loop{
   client = server.accept
-  
-  client.puts(Time.now.ctime)
-  client.puts body
+  puts "Contact!"
+  if(/([\w]+)/ =~ "GET")
+    puts "It worked!"
+  end
+  while line = client.gets
+    puts line.chop
+  end
   client.close
-  }
+}
