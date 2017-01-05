@@ -6,7 +6,11 @@ loop{
   puts "Contact!"
   while line = client.gets
     if(line =~ /GET/)
-      puts "It worked!"
+      if(line =~ /index/)
+        puts "It worked!"
+      else
+        puts "ERROR 404: THE RESOURCE YOU HAVE REQUESTED DOES NOT EXIST"
+      end
     end
     puts line.chop
   end
