@@ -10,9 +10,10 @@ loop{
   if(request =~ /GET/)
     socket.print "Inside first IF statement"
       if(request =~ /index/)
-        socket.print "HTTP/1.1 200 OK\r\n" +
+        puts "HTTP/1.1 200 OK\r\n" +
              "Content-Type: text/html\r\n" +
-             "Content-Length: an amount\r\n"
+             "Content-Length: an amount\r\n" +
+             "Connection: close \r\n"
         response = "/index.html"
         socket.print response
       else
