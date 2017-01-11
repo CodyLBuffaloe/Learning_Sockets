@@ -3,23 +3,22 @@ require 'socket'
 server = TCPServer.open(80)
 loop{
   socket = server.accept
-  while line = socket.gets
-    if(line =~ /GET/)
-      if(line =~ /index/)
+  request = ""
+  while(request_line = socket.gets and request_line != "\r\n")
+    request += request_line
+  end
+  if(request =~ /GET/)
+    socket.print "Inside first IF statement"
+      if(request =~ /index/)
+        socket.print "HTTP/1.1 200 OK\r\n" +
+             "Content-Type: text/html\r\n" +
+             "Content-Length: an amount\r\n"
         response = "/index.html"
         socket.print response
-
-        puts "HTTP/1.1 200 OK\r\n" +
-             "Content-Type: text/plain\r\n" +
-             "Content-Length: an amount\r\n" +
-             "Connection: close\r\n"
-
-
       else
         puts "ERROR 404: THE RESOURCE YOU HAVE REQUESTED DOES NOT EXIST"
       end
-    end
-    puts line.chop
   end
+    puts request.chop
   socket.close
 }
