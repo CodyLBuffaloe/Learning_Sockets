@@ -10,19 +10,23 @@ loop{
   if(request =~ /GET/)
       if(request =~ /index/)
         webpage = File.readlines("index.html")
+        characters = webpage.join.length
         puts "HTTP/1.1 200 OK\r\n" +
              "Content-Type: text/html\r\n" +
-             "Content-Length: some size\r\n" +
+             "Content-Length: #{characters}\r\n" +
              "Connection: close \r\n"
         webpage.each do |line|
           socket.print line
         end
       else
-        puts "ERROR 404: THE RESOURCE YOU HAVE REQUESTED DOES NOT EXIST"
-        socket.print "404 ERROR \r\n" +
+        error_page = "404 ERROR \r\n" +
                      "The file you are looking for doesn't exist! :("
+        puts "HTTP/1.1 404 Not Found\r\n" +
+             "Content-Type: text/html\r\n" +
+             "Content-Length: #{error_page.length}\r\n"+
+             "Connection: close \r\n"
+        socket.print  error_page
       end
   end
-    puts request.chop
   socket.close
 }
