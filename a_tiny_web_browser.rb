@@ -2,6 +2,10 @@
 
 require 'socket'
 
+puts "Would you like to get a page or post something? Type 'g' to GET a page " +
+     "and 'p' to POST something."
+user_request = gets.chomp
+
 host = 'localhost'
 port = 80
 path = "/index.html"
