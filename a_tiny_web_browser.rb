@@ -5,7 +5,7 @@ require 'socket'
 puts "Would you like to get a page or post something? Type 'g' to GET a page " +
      "and 'p' to POST something."
 user_request = gets.chomp
-if(user_request = "g")
+if(user_request == "g")
   host = 'localhost'
   port = 80
   path = "/index.html"
@@ -17,11 +17,13 @@ if(user_request = "g")
   response = socket.read
   body = response.split("\r\n", 2)
   print body
-elsif(user_request = "p")
+elsif(user_request == "p")
+  vikings = {:viking => {:name => "",
+                         :email => ""}
+            }
   puts "You're signing up for a Viking raid! Please provide your name:"
-  name = gets.chomp
+  vikings[:viking][:name] = gets.chomp
   puts "And your e-mail address:"
-  e-mail = gets.chomp
-  
-
+  vikings[:viking][:email] = gets.chomp
+  puts vikings
 end
