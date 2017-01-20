@@ -28,6 +28,9 @@ loop{
              "Connection: close \r\n"
         socket.print  error_page
       end
+  elsif(request =~ /POST/)
+
+
   end
   socket.close
 }

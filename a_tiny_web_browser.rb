@@ -19,6 +19,9 @@ if(user_request == "g")
   body = response.split("\r\n", 2)
   print body
 elsif(user_request == "p")
+  host = 'localhost'
+  port = 80
+  path = "/thanks.html"
   vikings = {:viking => {:name => "",
                          :email => ""}
             }
