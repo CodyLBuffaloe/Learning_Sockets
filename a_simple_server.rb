@@ -1,4 +1,5 @@
 require 'socket'
+require 'json'
 
 server = TCPServer.open(80)
 loop{
