@@ -4,12 +4,10 @@ require 'json'
 server = TCPServer.open(80)
 loop{
   socket = server.accept
-  request = ""
-  while(request_line = socket.gets and request_line != "\r\n")
-    request += request_line
-  end
+  request = socket.gets
   if(request =~ /GET/)
       if(request =~ /index/)
+      puts request
         webpage = File.readlines("index.html")
         characters = webpage.join.length
         puts "HTTP/1.1 200 OK\r\n" +
@@ -29,8 +27,8 @@ loop{
         socket.print  error_page
       end
   elsif(request =~ /POST/)
-
-
+    webpage = File.readlines("thanks.html")
+    puts request
   end
   socket.close
 }
