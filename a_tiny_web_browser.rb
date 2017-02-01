@@ -31,7 +31,7 @@ elsif(user_request == "p")
             "#{vikings.to_json}"
 end
 
-puts request
+
 socket = TCPSocket.open(host, port)
 socket.print(request)
 response = socket.read
