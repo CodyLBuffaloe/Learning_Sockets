@@ -25,10 +25,10 @@ elsif(user_request == "p")
   request = "POST #{path} HTTP/1.0\r\n" +
             "From: #{vikings[:viking][:email]}\r\n" +
             "User-Agent: \r\n" +
-            "Content-Type: JSON\r\n" +
+            "Content-Type: application/x-www-form-urlencoded\r\n" +
             "Content-Length: #{vikings.to_json.bytesize}\r\n" +
-            "\r\n" +
-            "#{vikings.to_json}"
+             "#{vikings.to_json}\r\n"+
+            "\r\n"
 end
 
 puts request

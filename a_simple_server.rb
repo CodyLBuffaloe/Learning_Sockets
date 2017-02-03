@@ -9,6 +9,7 @@ loop{
   while (request = socket.gets) && request.chomp != ''
     full_request << request
   end
+  puts full_request
   puts "After while loop"
   if(full_request =~ /GET/)
       if(full_request =~ /index/)
@@ -35,9 +36,13 @@ loop{
     if(full_request =~ /thanks/)
       split_request = full_request.split("\r\n")
        split_request.each do |line|
+         body_length = 0
          if(line =~ /Length/)
            body_length = line.delete('^0-9')
            puts body_length
+         end
+         if(body_length.to_i <= line.bytesize)
+           puts "#{line}, #{line.bytesize}"
          end
        end
     else
