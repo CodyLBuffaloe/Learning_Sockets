@@ -4,16 +4,15 @@ require 'json'
 server = TCPServer.open(80)
 loop{
   socket = server.accept
-  http_request = []
-  puts "Heading into while loop"
+  full_request = ""
+  puts "Before while loop"
   while (request = socket.gets) && request.chomp != ''
-    http_request << request
+    full_request << request
   end
-  puts http_request
-  puts "Out of while loop, transmission of request over"
-  if(request =~ /GET/)
-      if(request =~ /index/)
-      puts request
+  puts "After while loop"
+  if(full_request =~ /GET/)
+      if(full_request =~ /index/)
+
         webpage = File.readlines("index.html")
         characters = webpage.join.length
         puts "HTTP/1.1 200 OK\r\n" +
@@ -32,13 +31,18 @@ loop{
              "Connection: close \r\n"
         socket.print  error_page
       end
-  elsif(request =~ /POST/)
-    if(request =~ /thanks/)
-      puts request
+  elsif(full_request =~ /POST/)
+    if(full_request =~ /thanks/)
+      split_request = full_request.split("\r\n")
+       split_request.each do |line|
+         if(line =~ /Length/)
+           body_length = line.delete('^0-9')
+           puts body_length
+         end
+       end
     else
       socket.print error_page
     end
-
   end
   socket.close
 }

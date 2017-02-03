@@ -26,12 +26,12 @@ elsif(user_request == "p")
             "From: #{vikings[:viking][:email]}\r\n" +
             "User-Agent: \r\n" +
             "Content-Type: JSON\r\n" +
-            "Content_Length: #{vikings.to_json.bytesize}\r\n" +
-            "\r\n"+
+            "Content-Length: #{vikings.to_json.bytesize}\r\n" +
+            "\r\n" +
             "#{vikings.to_json}"
 end
 
-
+puts request
 socket = TCPSocket.open(host, port)
 socket.print(request)
 response = socket.read
