@@ -35,16 +35,20 @@ loop{
   elsif(full_request =~ /POST/)
     if(full_request =~ /thanks/)
       split_request = full_request.split("\r\n")
+      body_length = 0
        split_request.each do |line|
-         body_length = 0
          if(line =~ /Length/)
            body_length = line.delete('^0-9')
-           puts body_length
-         end
-         if(body_length.to_i <= line.bytesize)
-           puts "#{line}, #{line.bytesize}"
          end
        end
+       split_request.each do |line|
+         if(line.bytesize >= body_length.to_i)
+           puts line
+           params = JSON.parse(line)
+           puts params
+         end
+       end
+
     else
       socket.print error_page
     end
