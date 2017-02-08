@@ -36,6 +36,8 @@ loop{
     if(full_request =~ /thanks/)
       split_request = full_request.split("\r\n")
       body_length = 0
+      params = ""
+
        split_request.each do |line|
          if(line =~ /Length/)
            body_length = line.delete('^0-9')
@@ -43,11 +45,12 @@ loop{
        end
        split_request.each do |line|
          if(line.bytesize >= body_length.to_i)
-           puts line
            params = JSON.parse(line)
            puts params
          end
        end
+       post_response = File.read("thanks.html")
+       socket.print post_response
 
     else
       socket.print error_page
