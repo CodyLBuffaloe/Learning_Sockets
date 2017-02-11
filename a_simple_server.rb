@@ -37,6 +37,7 @@ loop{
       split_request = full_request.split("\r\n")
       body_length = 0
       params = ""
+      sub = ""
 
        split_request.each do |line|
          if(line =~ /Length/)
@@ -46,10 +47,18 @@ loop{
        split_request.each do |line|
          if(line.bytesize >= body_length.to_i)
            params = JSON.parse(line)
-           puts params
          end
        end
-       post_response = File.read("thanks.html")
+       params.each_value do |value|
+         sub << "<li>#{value}</li>\n"
+       end
+       post_response = File.readlines("thanks.html")
+       post_response.each do |line|
+         line.strip!.chomp
+         if(line =~ /<%= yield %>/)
+           line.gsub!('<%= yield %>', sub)
+         end
+       end
        socket.print post_response
 
     else

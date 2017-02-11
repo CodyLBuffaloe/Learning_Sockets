@@ -31,7 +31,7 @@ elsif(user_request == "p")
             "\r\n"
 end
 
-puts request
+
 socket = TCPSocket.open(host, port)
 socket.print(request)
 response = socket.read
