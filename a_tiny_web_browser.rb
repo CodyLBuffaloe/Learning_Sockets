@@ -15,15 +15,15 @@ if(user_request == "g")
   request = "GET #{path} HTTP/1.0\r\n\r\n"
 elsif(user_request == "p")
   path = "/thanks.html"
-  vikings = {:viking => {:name => "",
-                         :email => ""}
+  vikings = {:viking => {:Name => "",
+                         :Email => ""}
             }
   puts "You're signing up for a Viking raid! Please provide your name:"
-  vikings[:viking][:name] = gets.chomp
+  vikings[:viking][:Name] = gets.chomp
   puts "And your e-mail address:"
-  vikings[:viking][:email] = gets.chomp
+  vikings[:viking][:Email] = gets.chomp
   request = "POST #{path} HTTP/1.0\r\n" +
-            "From: #{vikings[:viking][:email]}\r\n" +
+            "From: #{vikings[:viking][:Email]}\r\n" +
             "User-Agent: \r\n" +
             "Content-Type: application/x-www-form-urlencoded\r\n" +
             "Content-Length: #{vikings.to_json.bytesize}\r\n" +

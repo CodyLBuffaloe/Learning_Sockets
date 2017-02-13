@@ -5,12 +5,9 @@ server = TCPServer.open(80)
 loop{
   socket = server.accept
   full_request = ""
-  puts "Before while loop"
   while (request = socket.gets) && request.chomp != ''
     full_request << request
   end
-  puts full_request
-  puts "After while loop"
   if(full_request =~ /GET/)
       if(full_request =~ /index/)
 
@@ -50,8 +47,12 @@ loop{
          end
        end
        params.each_value do |value|
-         sub << "<li>#{value}</li>\n"
+         value.each do |key, value|
+           sub << "<li>#{key.to_s}, #{value}</li>"
+
+         end
        end
+
        post_response = File.readlines("thanks.html")
        post_response.each do |line|
          line.strip!.chomp
